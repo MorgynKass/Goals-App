@@ -1,16 +1,34 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  FlatList,
+} from "react-native";
 
 export default function App() {
   const [enteredText, setEnteredText] = useState("");
   const [goals, setGoals] = useState([]);
+
+  const renderItem = ({ itemData }) => {
+    return (
+      <View style={styles.goalList}>
+        <Text style={styles.goalItem}>{itemData}</Text>
+      </View>
+    );
+  };
 
   function goalInputHandler(text) {
     setEnteredText(text);
   }
 
   function addGoalHandler() {
-    setGoals((currentGoals) => [...currentGoals, enteredText]);
+    setGoals((currentGoals) => [
+      ...currentGoals,
+      { text: enteredText, key: Math.random().toString() },
+    ]);
   }
 
   return (
@@ -18,15 +36,20 @@ export default function App() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
-          placeholder="Your course goal!"
+          placeholder="Your goal!"
           onChangeText={goalInputHandler}
         />
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        {goals.map((goal, index) => (
-          <Text key={index}>{goal}</Text>
-        ))}
+        <FlatList
+          data={goals}
+          renderItem={(itemData) => (
+            <View style={styles.goalList}>
+              <Text style={styles.goalItem}>{itemData.item.text}</Text>
+            </View>
+          )}
+        />
       </View>
     </View>
   );
@@ -37,10 +60,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingHorizontal: 16,
+    backgroundColor: "#EEEEEE",
 
     // for visuals
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   inputContainer: {
     flex: 1,
@@ -52,8 +76,8 @@ const styles = StyleSheet.create({
     borderColor: "#cccccc",
 
     // for visuals
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   textInput: {
     borderWidth: 1,
@@ -63,14 +87,25 @@ const styles = StyleSheet.create({
     padding: 8,
 
     // for visuals
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   goalsContainer: {
     flex: 4,
 
     // for visuals
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
+  goalList: {
+    margin: 8,
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: "#DDDDDD",
+  },
+  goalItem: {
+    color: "#76885B",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

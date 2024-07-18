@@ -1,6 +1,17 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
+import { useState } from "react";
 
 function GoalItem(props) {
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+
+  function displayAddGoalHandler() {
+    setModalIsVisible(true);
+  }
+
+  function concealAddGoalHandler() {
+    setModalIsVisible(false);
+  }
+
   return (
     <View style={styles.goalList}>
       <Pressable

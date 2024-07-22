@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { useState } from "react";
+import DeleteModal from "./DeleteModal";
 
 function GoalItem(props) {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -16,10 +17,17 @@ function GoalItem(props) {
     <View style={styles.goalList}>
       <Pressable
         style={({ pressed }) => pressed && styles.pressedItem}
-        // android_ripple={{ color: "#cbcbcb" }}
-        onPress={props.deleteItem.bind(this, props.id)}
+        onPress={displayAddGoalHandler}
       >
         <Text style={styles.goalItem}>{props.text}</Text>
+        {modalIsVisible && (
+          <DeleteModal
+            text={props.text}
+            onCancel={concealAddGoalHandler}
+            id={props.id}
+            deleteItem={props.deleteItem}
+          />
+        )}
       </Pressable>
     </View>
   );

@@ -27,10 +27,6 @@ function Input(props) {
       animationType="slide"
     >
       <View style={styles.inputContainer}>
-        <Image
-          style={styles.goalImg}
-          source={require("../assets/images/goal.png")}
-        />
         <TextInput
           style={styles.textInput}
           placeholder="Add goal"
@@ -61,16 +57,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 15,
     marginBottom: 24,
-    backgroundColor: "#DDDDDD"
+    backgroundColor: "#DDDDDD",
 
     // for visuals
     // borderWidth: 1,
     // borderColor: "red",
-  },
-  goalImg: {
-    width: 100,
-    height: 100,
-    margin: 20,
   },
   textInput: {
     padding: 12,
